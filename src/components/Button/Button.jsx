@@ -1,56 +1,47 @@
 import React from "react";
+import { clsx } from "clsx";
 
-// import styles
-import styles from "./Button.module.css";
+export const Button = ({
+  href,
+  color = "black",
+  disabled = false,
+  handleClick,
+  children,
+  customClasses,
+  ...props
+}) => {
+  const baseStyles = "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md border border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
+  
+  const colorStyles = {
+    black: "bg-gray-900 text-white hover:bg-gray-800 active:text-gray-300 focus:ring-gray-500 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200",
+    white: "bg-gray-50 text-gray-900 border-gray-300 hover:bg-gray-100 active:text-gray-700 focus:ring-gray-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:bg-gray-700"
+  };
 
-// import dependencies
-import {clsx} from "clsx";
-import Link from "next/link";
+  const disabledStyles = disabled ? "opacity-50 cursor-not-allowed" : "";
 
-export const Button = (
-  {
-    href,
-    color,
-    disabled,
-    handleClick,
-    children,
-    customClasses,
-    ...props
-  }) => {
-  const classes = clsx(
-    styles.button,
-    {
-      // colors
-      [styles.buttonBlack]: color === "black",
-      [styles.buttonWhite]: color === "white",
-      // disabled
-      [styles.buttonDisabled]: disabled,
-    },
-    // custom classes
-    customClasses
-  );
+  const classes = clsx(baseStyles, colorStyles[color] || colorStyles.black, disabledStyles, customClasses);
 
   if (href) {
     return (
-      <Link href={disabled ? '' : href} onClick={handleClick} className={classes} {...props}>
+      <a 
+        href={disabled ? "#" : href} 
+        onClick={disabled ? (e) => e.preventDefault() : handleClick}
+        className={classes} 
+        {...props}
+      >
         {children}
-      </Link>
+      </a>
     );
   }
 
   return (
-    <button disabled={disabled} onClick={handleClick} className={classes} {...props}>
+    <button 
+      disabled={disabled} 
+      onClick={handleClick} 
+      className={classes} 
+      {...props}
+    >
       {children}
     </button>
   );
-};
-
-Button.defaultProps = {
-  color: "black",
-  size: "lg",
-  href: undefined,
-  disabled: undefined,
-  customClasses: undefined,
-  handleClick: undefined,
-  children: undefined,
 };
