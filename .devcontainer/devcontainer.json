@@ -10,9 +10,7 @@
   "postAttachCommand": {
     "server": "npm run dev"
   },
-  "forwardPorts": [
-    3000
-  ],
+  "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
       "label": "Application",

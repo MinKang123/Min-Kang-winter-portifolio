@@ -13,6 +13,6 @@
     "GitHub.vscode-github-actions",
     "ms-playwright.playwright",
     "ortoni.ortoni",
-    "ms-azuretools.vscode-docker",
+    "ms-azuretools.vscode-docker"
   ]
 }
